@@ -4,6 +4,23 @@ var bot = {
 	"response": "c'est la vie"
 };
 
+var name = "";
+var msg ="";
+
+function addMsg(username, newMsg){
+	function message(){
+		$("#displayTxtArea").append("<p><span class='name badge'>" + username
+		+ "</span>" + newMsg + "</p>");
+	};
+	message();
+};
+
+function userColor(username){
+	if(username.attr('name') == "pseudo1"){
+		username.siblings(".name").css("background-color", "green");
+	}
+}
+
 $("nav").find("div").css("text-align", "center");
 $("nav").find("div").css("font-size", "30px");
 
@@ -17,18 +34,24 @@ $(".txt").val("Tapez votre message");
 $(".pseudo").css("display", "block");
 
 
+
 $(".chatEntry button").click(function(){
-	$("#displayTxtArea").append("<p><span class='name badge'>" +
-	$(this).siblings(".pseudo").val() +" </span>"
-	+ $(this).siblings(".txt").val() + "</p>");
-	if($(this).siblings(".txt").val() == bot.question){
-	 	$("#displayTxtArea").append("<p><span class='badge'>Bot</span>"+bot.response+"</p>");
+	name = $(this).siblings(".pseudo").val();
+	msg = $(this).siblings(".txt").val();
+	addMsg(name, msg);
+	if($(this).parents().attr('id') == "user1"){
+		$("#displayTxtArea").find(".name").css("background-color", "green");
+	} else if($(this).parents().attr('id') == "user2"){
+		$("#displayTxtArea").find(".name").css("background-color", "pink");
 	}
+	userColor(name);
 });
 
-$("#user1 button").click(function(){
+
+
+/*$("#user1 button").click(function(){
 	$("#displayTxtArea").find(".name").css("background-color", "green");
-});
+});*/
 
 $("#user2 button").click(function(){
 	$("#displayTxtArea").find(".name").css("background-color", "pink");
